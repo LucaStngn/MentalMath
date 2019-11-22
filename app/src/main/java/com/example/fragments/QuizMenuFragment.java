@@ -22,7 +22,7 @@ import com.example.mentalmath.R;
 public class QuizMenuFragment extends Fragment implements AsyncTaskDelegate_insertQuiz {
     private TextView txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8;
     private Button btn1, btn2, btn3;
-    private int XP, EasyUnlock = 10, MediumUnlock = 20, HardUnlock = 30;
+    private int XP, EasyUnlock = 100, MediumUnlock = 500, HardUnlock = 1000;
     public static int QuizID = 0;                                                                   // 'Global variable' always keeps the information of the quiz that has been clicked on.
     private Quiz defaultQuizObject = new Quiz();
     private QuizMenuFragment thisFragment = this;
