@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">MentalMath</string>
+    <string name="XP">Total XP:</string>
+    <string name="Right">Total right this session:</string>
+    <string name="Wrong">Total wrong this session:</string>
+    <string name="Answer">Answer:</string>
+    <string name="Easy">Easy</string>
+    <string name="Medium">Medium</string>
+    <string name="Hard">Hard</string>
+    <string name="Instruction">Instruction:</string>
+    <string name="Category">Category:</string>
+    <string name="Topic">Topic:</string>
+    <string name="Difficulty">Difficulty:</string>
+    <string name="history">History</string>
+    <string name="training">Training</string>
+    <string name="quizzes">Quizzes</string>
+    <string name="ToDo">TODO</string>
+    <string name="QuizQuestionCounter">Question Counter:</string>
+    <string name="unlocked">Unlocked:</string>
+    <string name="passed">Passed:</string>
+    <string name="question">Question:</string>
+    <string name="user_answer">Your answer:</string>
+    <string name="correct_answer">Correct answer:</string>
+    <string name="time_left">Seconds Left:</string>
+</resources>

@@ -1,0 +1,45 @@
+package com.example.asynctask;
+import android.os.AsyncTask;
+import com.example.database.AppDatabase;
+import com.example.mainClasses.History;
+
+/*
+ * AsyncTask_getHistory.java
+ * handles what to do in the extra thread.
+ * We need one of these classes per 'different task' (here per type of database query).
+ */
+
+public class AsyncTask_getHistory extends AsyncTask<Void, Integer, History[]> {                     // <Input, (Unit of progress), Output>
+    private AsyncTaskDelegate_getHistory delegate;                                                  // We store a variable for an object that implements our interface, so we know that whatever is in here, knows how to handle the result of our task.
+    private AppDatabase db;                                                                         // This AsyncTask will also need to be given a database instance, so it can perform database queries.
+
+    public void setDelegate(AsyncTaskDelegate_getHistory delegate) {
+        this.delegate = delegate;
+    }
+
+    public void setDatabase(AppDatabase database) {
+        this.db = database;
+    }
+
+    /**
+     * doInBackground()
+     * In this method you do the task that could take a long time.
+     * --> e.g. database queries / API requests
+     * @param voids: The '...' means it accepts either a 'single void' or an 'array of voids' or 'nothing'!
+     */
+    @Override
+    protected History[] doInBackground(Void... voids) {                                             // The parameter always needs the '...' (because the doInBackground() expects a List)
+        return db.historyDAO().getHistory();                                                        // Code to perform the task.
+    }
+
+    /**
+     * onPostExecute()
+     * Once doInBackground() is completed, this method will automatically run.
+     * In this method you usually give the result back to the delegate (the activity / fragment the thread was executed from) and let them handle it.
+     * @param result: is passed automatically from doInBackground().
+     */
+    @Override
+    protected void onPostExecute(History[] result) {
+        delegate.handleTaskResult(result);                                                          // Call the delegate's method with the results
+    }
+}

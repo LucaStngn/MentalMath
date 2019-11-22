@@ -1,0 +1,16 @@
+{
+  "id": "pbgnx",
+  "question": "<mi>x<\/mi><mo> + <\/mo><mn>5<\/mn><mo> = <\/mo><mrow><mo> - <\/mo><mn>8<\/mn><\/mrow>",
+  "choices": [
+    "<math><mn>9<\/mn><\/math>",
+    "<math><mo>-<\/mo><mn>2<\/mn><\/math>",
+    "<math><mn>7<\/mn><\/math>",
+    "<math><mo>-<\/mo><mn>13<\/mn><\/math>",
+    "<math><mo>-<\/mo><mn>18<\/mn><\/math>"
+  ],
+  "correct_choice": 3,
+  "instruction": "Solve for x",
+  "category": "Algebra",
+  "topic": "Linear Equations",
+  "difficulty": "Beginner"
+}
