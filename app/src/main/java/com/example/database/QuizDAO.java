@@ -14,15 +14,15 @@ import static androidx.room.OnConflictStrategy.IGNORE;
 @Dao
 public interface QuizDAO {
 
-    // Set the 3 default entries (passed = false) when the database is created.
-    @Insert(onConflict = IGNORE)                                                                    // When there is already an entry (the PrimaryKey ID = 0), ignore it:
-    void insertQuiz(Quiz q);                                                                        // Insert inserts a whole table entry. (one row)
+    // Query to insert a new row to the 'Quiz_table':
+    @Insert(onConflict = IGNORE)
+    void insertQuiz(Quiz q);                                                                        // Set the 3 default entries (passed = false) when the database is created.
 
-    // Query to get if a certain quiz has been passed yet:
+    // Query to get whether or not a certain quiz has been passed yet:
     @Query("SELECT Passed FROM Quiz_Table WHERE QuizID = :quizID")
     boolean getPassedStatusByID(int quizID);
 
-    // Query to set if a certain quiz has been passed:
+    // Query to set whether or not a certain quiz has been passed:
     @Query ("UPDATE Quiz_Table SET Passed = 1 WHERE QuizID = :quizID")
     void setPassedStatusByID(int quizID);
 }

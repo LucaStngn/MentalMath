@@ -7,10 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.mainClasses.History;
-
 import java.util.Arrays;
 import java.util.Collections;
-
 import io.github.sidvenu.mathjaxview.MathJaxView;
 import static com.example.fragments.TrainingFragment.html_1;
 import static com.example.fragments.TrainingFragment.html_2;
@@ -27,7 +25,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     public void setData(History[] allAnswers) {
         Collections.reverse(Arrays.asList(allAnswers));                                             // Reverse array order, so that the newest history entry is always the first one.
         this.list = allAnswers;                                                                     // Assign all the 'history' objects from the database to the Array of 'history' objects.
-
     }
 
     // Function 1/3: Create new views (The 'chunks'):
@@ -65,7 +62,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
         // Assign data to the view elements inside the RecyclerView:
         private void bind(final History history) {
-            // The html input is necessary to get the 'left-alignment'
+            // The custom html input is necessary to set the 'left-alignment' of the MathJaxViews:
             MJV1.loadDataWithBaseURL("about:blank", html_1 + "<math>" + history.getQuestion() + "</math>" + html_2, "text/html", "UTF-8", "");
             MJV2.loadDataWithBaseURL("about:blank", html_1 + history.getCorrect_choice() + html_2, "text/html", "UTF-8", "");
             MJV3.loadDataWithBaseURL("about:blank", html_1 + history.getUser_choice() + html_2, "text/html", "UTF-8", "");

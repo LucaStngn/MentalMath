@@ -14,9 +14,9 @@ import static androidx.room.OnConflictStrategy.IGNORE;
 @Dao
 public interface XPDAO {
 
-    // Set the default entry (XP = 0) when the database is created.
-    @Insert(onConflict = IGNORE)                                                                    // When there is already an entry (the PrimaryKey ID = 0), ignore it:
-    void insertXP(XP xp);                                                                           // Has to be an Object of XP, because you can't use primitive datatypes (as int) in Room's CRUD annotations (@Insert, @Delete, @Update)
+    // Query to insert a new row to the 'XP_table':
+    @Insert(onConflict = IGNORE)
+    void insertXP(XP xp);                                                                           // Has to be an Object of XP, because you can't use primitive datatypes in Room's CRUD annotations (@Insert, @Delete, @Update)
 
     // Query to get the current XP value:
     @Query("SELECT XP FROM XP_Table WHERE ID = 0")

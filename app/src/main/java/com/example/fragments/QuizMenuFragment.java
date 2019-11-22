@@ -22,7 +22,7 @@ import com.example.mentalmath.R;
 public class QuizMenuFragment extends Fragment implements AsyncTaskDelegate_insertQuiz {
     private TextView txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8;
     private Button btn1, btn2, btn3;
-    private int XP, EasyUnlock = 100, MediumUnlock = 500, HardUnlock = 1000;
+    private int XP, EasyUnlock = 10, MediumUnlock = 20, HardUnlock = 30;
     public static int QuizID = 0;                                                                   // 'Global variable' always keeps the information of the quiz that has been clicked on.
     private Quiz defaultQuizObject = new Quiz();
     private QuizMenuFragment thisFragment = this;
@@ -41,12 +41,13 @@ public class QuizMenuFragment extends Fragment implements AsyncTaskDelegate_inse
         txt6 = v.findViewById(R.id.txtHardUnlockStatus);
         txt7 = v.findViewById(R.id.txtHardPassStatus);
         txt8 = v.findViewById(R.id.txtOutput);
-        final AppDatabase db = AppDatabase.getInstance(getContext());                                   // Database Object
+        final AppDatabase db = AppDatabase.getInstance(getContext());                               // Database Object
 
         // Get current XP value from database:
         XP = db.xpDao().getXP();
         txt1.setText(Integer.toString(XP));                                                         // Load current database XP value into TextView on Fragment load.
-        for (int i=1; i<=3; i++) {
+
+        for (int i=1; i<=3; i++) {                                                                  // For all three quiz difficulties:
             defaultQuizObject.setQuizID(i);
             defaultQuizObject.setPassed(false);
             // 'Insert' via AsyncTask (in another thread):
@@ -56,7 +57,7 @@ public class QuizMenuFragment extends Fragment implements AsyncTaskDelegate_inse
             task1.execute(defaultQuizObject);                                                       // Set default values (3 times false) in database (BUT only when the database is created)
         }
 
-        // Set 'passed' values, depending on the database values.
+        // Set 'quiz passed' values, depending on the database values.
         if (db.quizDAO().getPassedStatusByID(1)) {
             txt3.setText("Yes");
             txt3.setTextColor(getResources().getColor(R.color.colorCorrect));
@@ -79,8 +80,7 @@ public class QuizMenuFragment extends Fragment implements AsyncTaskDelegate_inse
             txt7.setTextColor(getResources().getColor(R.color.colorWrong));
         }
 
-
-        // Set 'unlocked' values, based on the current XP value:
+        // Set 'quiz unlocked' values, based on the current XP value:
         if (XP >= EasyUnlock) {
             txt2.setText("Yes");
             txt2.setTextColor(getResources().getColor(R.color.colorCorrect));
@@ -103,7 +103,7 @@ public class QuizMenuFragment extends Fragment implements AsyncTaskDelegate_inse
             txt6.setTextColor(getResources().getColor(R.color.colorWrong));
         }
 
-        // Set Quiz Output, if the user is coming back from a quiz
+        // Set Quiz output, (ONLY) if the user is coming back from a quiz:
         String passedMessage = QuizFragment.passedMessage;
         boolean passedStatus = QuizFragment.passedStatus;
         if (passedStatus) {

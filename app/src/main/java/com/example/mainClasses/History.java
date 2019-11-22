@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey;
 /*
  *  History.java
  *  This class defines how one 'History Object' looks like.
+ *  These History Objects are displayed in the "History" tab of the BottomNavigationView.
+ *  They represent all the past user answers during the straining mode.
  */
 
 @Entity (tableName = "History_Table")

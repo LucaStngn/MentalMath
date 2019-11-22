@@ -27,7 +27,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-import io.github.sidvenu.mathjaxview.MathJaxView;                                                   // Library to display MathML via MathJax in WebViews (https://github.com/sidvenu/MathJaxView)
+import io.github.sidvenu.mathjaxview.MathJaxView;                                                   // Library used to display MathML via MathJax in WebViews (https://github.com/sidvenu/MathJaxView)
 
 /*
  *  TrainingFragment.java
@@ -44,9 +44,9 @@ public class TrainingFragment extends Fragment implements AsyncTaskDelegate_inse
     private Timer timer = new Timer();
     private XP defaultXPObject = new XP();
     private TrainingFragment thisFragment = this;
-    public static String config = "" +
-            "MathJax.Hub.Config({" +
-            "    extensions: ['fast-preview.js']," +
+    public static String config = "" +                                                              // This way, we can configure the MathJaxView display style in Java itself. (You can't just change a MathJaxView's properties via Java. You need to change it's actual html configuration)
+            "MathJax.Hub.Config({" +                                                                // Received from the official MathJax documentation: http://docs.mathjax.org/en/latest/options/index.html
+            "    extensions: ['fast-preview.js']," +                                                // Via this configuration, we can enable "Left alignment" of MathJaxViews.
             "    messageStyle: 'none'," +
             "    \"fast-preview\": {" +
             "      disabled: false" +
@@ -85,7 +85,7 @@ public class TrainingFragment extends Fragment implements AsyncTaskDelegate_inse
         txt6 = v.findViewById(R.id.txtXP);
         txt7 = v.findViewById(R.id.txtRight);
         txt8 = v.findViewById(R.id.txtWrong);
-        final AppDatabase db = AppDatabase.getInstance(getContext());                                   // Database Object
+        final AppDatabase db = AppDatabase.getInstance(getContext());                               // Database Object
 
         // Set default value in database (BUT only when the database is created):
         db.xpDao().insertXP(defaultXPObject);                                                       // Not done via AsyncTask by intention, because thereby we can't rely on a 100% correct program schedule.
@@ -93,12 +93,12 @@ public class TrainingFragment extends Fragment implements AsyncTaskDelegate_inse
         XP = db.xpDao().getXP();                                                                    // Not done via AsyncTask by intention, because thereby we can't rely on a 100% correct program schedule.
 
         // Set question difficulty, based on which quizzes are passed so far:
-        if (db.quizDAO().getPassedStatusByID(1)) {
-            API_URL = "https://studycounts.com/api/v1/algebra/linear-equations.json?difficulty=intermediate";
+        if (db.quizDAO().getPassedStatusByID(3)) {
+            API_URL = "https://studycounts.com/api/v1/algebra/linear-equations.json";               // Random difficulty
         } else if (db.quizDAO().getPassedStatusByID(2)) {
             API_URL = "https://studycounts.com/api/v1/algebra/linear-equations.json?difficulty=advanced";
-        } else if (db.quizDAO().getPassedStatusByID(3)) {
-            API_URL = "https://studycounts.com/api/v1/algebra/linear-equations.json";               // Random difficulty
+        } else if (db.quizDAO().getPassedStatusByID(1)) {
+            API_URL = "https://studycounts.com/api/v1/algebra/linear-equations.json?difficulty=intermediate";
         }
 
         if (!isOnline()) {
@@ -135,7 +135,7 @@ public class TrainingFragment extends Fragment implements AsyncTaskDelegate_inse
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     if (error.networkResponse.statusCode == 429) {
-                        Toast t = Toast.makeText(getContext(), "Max 10 requests per min!", Toast.LENGTH_SHORT);
+                        Toast t = Toast.makeText(getContext(), "Max 10 requests per min!", Toast.LENGTH_SHORT); // Current limitation by the API (https://studycounts.com/api. Therefore we catch this error here to guarantee user-friendliness)
                         t.setGravity(Gravity.CENTER, 0, 0);
                         t.show();
                     } else {
@@ -152,7 +152,7 @@ public class TrainingFragment extends Fragment implements AsyncTaskDelegate_inse
                 RadioButton selectedRB = group.findViewById(checkedId);                             // Currently selected Radiobutton.
 
                 // Gets executed 3 seconds after any user answer:
-                final Handler handler = new Handler();
+                final Handler handler = new Handler();                                              // https://developer.android.com/reference/android/os/Handler
                 TimerTask clearOutput = new TimerTask() {
                     public void run() {
                         handler.post(new Runnable() {
@@ -219,6 +219,7 @@ public class TrainingFragment extends Fragment implements AsyncTaskDelegate_inse
     /**
      * Method to check if the phone has working internet connection.
      * @return true, if it has a stable internet connection.
+     * Credits go to: https://medium.com/it-works-locally/what-if-your-android-user-doesnt-have-access-to-the-internet-ad3588cdbda4
      */
     public boolean isOnline() {
         Runtime runtime = Runtime.getRuntime();

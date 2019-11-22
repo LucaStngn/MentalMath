@@ -17,14 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  *  The App always starts with a 'HistoryFragment' loaded.
  */
 
-// TODO: Put the database requests into a extra thread. (Week 9)
-// TODO: Comment everything out.
-
-// TODO: Read through the whole document and make comments.
-// TODO: Read through the whole task document and check if we did everything.
-
-// TODO: Test the App on another computer. (And the APK file)
-
 public class MainActivity extends AppCompatActivity {
 
     @Override

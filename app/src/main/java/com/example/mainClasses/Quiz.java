@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 /*
  *  Quiz.java
  *  This class defines how one 'Quiz Object' looks like.
+ *  It is used to save, if a certain quiz has already been passed or not.
  */
 
 @Entity (tableName = "Quiz_Table")

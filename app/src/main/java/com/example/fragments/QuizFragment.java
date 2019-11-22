@@ -26,11 +26,11 @@ import com.example.database.AppDatabase;
 import com.example.mainClasses.Task;
 import com.example.mentalmath.R;
 import com.google.gson.Gson;
-import io.github.sidvenu.mathjaxview.MathJaxView;
+import io.github.sidvenu.mathjaxview.MathJaxView;                                                   // Library used to display MathML via MathJax in WebViews (https://github.com/sidvenu/MathJaxView)
 import java.util.Timer;
 import java.util.TimerTask;
-import static com.example.fragments.TrainingFragment.html_1;                                        // Reference values from TrainingFragment, so they don't have to be created twice.
-import static com.example.fragments.TrainingFragment.html_2;                                        // Reference values from TrainingFragment, so they don't have to be created twice.
+import static com.example.fragments.TrainingFragment.html_1;                                        // Reference value from TrainingFragment, so it doesn't need to be created twice.
+import static com.example.fragments.TrainingFragment.html_2;                                        // Reference value from TrainingFragment, so it doesn't need to be created twice.
 
 /*
  *  QuizFragment.java
@@ -75,15 +75,15 @@ public class QuizFragment extends Fragment implements AsyncTaskDelegate_setPasse
         switch (QuizMenuFragment.QuizID) {
             case 1:
                 API_URL = "https://studycounts.com/api/v1/algebra/linear-equations.json?difficulty=beginner";
-                MS = 120000;    // 2 minutes to complete the easy quiz.
+                MS = 120000;                                                                        // 2 minutes to complete the easy quiz.
                 break;
             case 2:
                 API_URL = "https://studycounts.com/api/v1/algebra/linear-equations.json?difficulty=intermediate";
-                MS = 240000;    // 4 minutes to complete the medium quiz.
+                MS = 240000;                                                                        // 4 minutes to complete the medium quiz.
                 break;
             case 3:
                 API_URL = "https://studycounts.com/api/v1/algebra/linear-equations.json?difficulty=advanced";
-                MS = 360000;    // 6 minutes to complete the hard quiz.
+                MS = 360000;                                                                        // 6 minutes to complete the hard quiz.
                 break;
         }
 
@@ -105,7 +105,7 @@ public class QuizFragment extends Fragment implements AsyncTaskDelegate_setPasse
                         txt8.setText(questionCounter + "/10");
 
                         // Display the 5 possible answers (with custom formatting)
-                        // The html input is necessary to get the 'left-alignment'
+                        // The custom html input is necessary to set the 'left-alignment' of the MathJaxViews:
                         MJV2.loadDataWithBaseURL("about:blank", html_1 + taskFromJSON.getChoices()[0] + html_2, "text/html", "UTF-8", "");
                         MJV3.loadDataWithBaseURL("about:blank", html_1 + taskFromJSON.getChoices()[1] + html_2, "text/html", "UTF-8", "");
                         MJV4.loadDataWithBaseURL("about:blank", html_1 + taskFromJSON.getChoices()[2] + html_2, "text/html", "UTF-8", "");
@@ -116,7 +116,7 @@ public class QuizFragment extends Fragment implements AsyncTaskDelegate_setPasse
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error.networkResponse.statusCode == 429) {
-                    Toast t = Toast.makeText(getContext(), "Max 10 requests per min!", Toast.LENGTH_SHORT);
+                    Toast t = Toast.makeText(getContext(), "Max 10 requests per min!", Toast.LENGTH_SHORT); // Current limitation by the API (https://studycounts.com/api. Therefore we catch this error here to guarantee user-friendliness)
                     t.setGravity(Gravity.CENTER, 0, 0);
                     t.show();
                 } else {
@@ -128,13 +128,13 @@ public class QuizFragment extends Fragment implements AsyncTaskDelegate_setPasse
         // Volley API Request (End)
 
         // Display the time left (countdown & progressbar):
-        new CountDownTimer(MS, interval) {
+        new CountDownTimer(MS, interval) {                                                          // https://developer.android.com/reference/android/os/CountDownTimer
             public void onTick(long msUntilFinished) {
-                txt9.setText(Long.toString(msUntilFinished / interval));                          // Countdown
+                txt9.setText(Long.toString(msUntilFinished / interval));                         // Countdown
                 PGB1.setProgress((int)(((double)msUntilFinished/(double)MS)*100));                  // Progressbar
             }
             public void onFinish() {
-                checkIfPassed();                                                                    // If no time is left.
+                checkIfPassed();                                                                    // If the time is up.
             }
         }.start();
 
@@ -144,7 +144,7 @@ public class QuizFragment extends Fragment implements AsyncTaskDelegate_setPasse
                 RadioButton selectedRB = group.findViewById(checkedId);                             // Currently selected Radiobutton.
 
                 // Gets executed 3 seconds after any user answer:
-                final Handler handler = new Handler();
+                final Handler handler = new Handler();                                              // https://developer.android.com/reference/android/os/Handler
                 TimerTask clearOutput = new TimerTask() {
                     public void run() {
                         handler.post(new Runnable() {
@@ -156,7 +156,7 @@ public class QuizFragment extends Fragment implements AsyncTaskDelegate_setPasse
                 };
 
                 // Handle correct / wrong answers:
-                if (group.indexOfChild(selectedRB) == taskFromJSON.getCorrect_choice()) {
+                if (group.indexOfChild(selectedRB) == taskFromJSON.getCorrect_choice()) {           // If the selected radioButton ID matches the correctAnswer ID
                     right++;
                     txt1.setText("Correct!");
                     txt1.setTextColor(getResources().getColor(R.color.colorCorrect));
@@ -166,7 +166,7 @@ public class QuizFragment extends Fragment implements AsyncTaskDelegate_setPasse
                     txt1.setTextColor(getResources().getColor(R.color.colorWrong));
                 }
 
-                // Set the statistics:
+                // Set the displayed statistics:
                 questionCounter++;
                 txt6.setText(Integer.toString(right));
                 txt7.setText(Integer.toString(wrong));
@@ -175,7 +175,7 @@ public class QuizFragment extends Fragment implements AsyncTaskDelegate_setPasse
                 // Reset to next task
                 if (questionCounter < 10 && wrong <= 2) {
                     timer.schedule(clearOutput, 3000);                                        // After 3 seconds, clear the text output
-                    selectedRB.setChecked(false);                                                   // Uncheck the user selected radioButton. (Does not trigger the 'setOnCheckedChangeListener')
+                    selectedRB.setChecked(false);                                                   // Uncheck the user selected radioButton. (This way it does not trigger the 'setOnCheckedChangeListener')
                     loadNewTask(queue, SR1);                                                        // Request new Task from the API
                 } else {
                     checkIfPassed();                                                                // If the user gave too many wrong answers.
@@ -215,7 +215,7 @@ public class QuizFragment extends Fragment implements AsyncTaskDelegate_setPasse
             AsyncTask_setPassedStatusByID task = new AsyncTask_setPassedStatusByID();               // Create extra thread.
             task.setDatabase(db);                                                                   // Set database.
             task.setDelegate(thisFragment);                                                         // Set delegate.
-            task.execute(QuizMenuFragment.QuizID);                                                  // Change the database value to true;
+            task.execute(QuizMenuFragment.QuizID);                                                  // Change the database value to true!
             swapFragment(new QuizMenuFragment());                                                   // Go back to quizMenu.
             passedMessage = "Congratulations!\nYou passed this quiz!\nYou can now train the next difficulty.";
             passedStatus = true;

@@ -22,8 +22,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase getInstance(Context context) {                                        // Method, so we don't have to create the database every time we run the app. This way we create it once and access it every time afterwards.
 
         if(instance == null) {
-            instance = Room.databaseBuilder(context, AppDatabase.class, "MentalMathDB")      // Here you can define the name of your database file.
-                    .allowMainThreadQueries()
+            instance = Room.databaseBuilder(context, AppDatabase.class, "MentalMathDB")      // Here we can define the name of our database file.
+                    .allowMainThreadQueries()                                                       // Kept by intention, as some database queries are supposed to be executed in the Main Thread, to assure they get executed in the right order.
                     .build();
         }
         return instance;
