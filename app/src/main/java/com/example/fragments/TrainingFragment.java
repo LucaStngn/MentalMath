@@ -93,11 +93,11 @@ public class TrainingFragment extends Fragment implements AsyncTaskDelegate_inse
         XP = db.xpDao().getXP();                                                                    // Not done via AsyncTask by intention, because thereby we can't rely on a 100% correct program schedule.
 
         // Set question difficulty, based on which quizzes are passed so far:
-        if (db.quizDAO().getPassedStatusByID(3)) {
+        if (db.quizDAO().getPassedStatusByID(3) == 1) {
             API_URL = "https://studycounts.com/api/v1/algebra/linear-equations.json";               // Random difficulty
-        } else if (db.quizDAO().getPassedStatusByID(2)) {
+        } else if (db.quizDAO().getPassedStatusByID(2) == 1) {
             API_URL = "https://studycounts.com/api/v1/algebra/linear-equations.json?difficulty=advanced";
-        } else if (db.quizDAO().getPassedStatusByID(1)) {
+        } else if (db.quizDAO().getPassedStatusByID(1) == 1) {
             API_URL = "https://studycounts.com/api/v1/algebra/linear-equations.json?difficulty=intermediate";
         }
 
@@ -220,6 +220,8 @@ public class TrainingFragment extends Fragment implements AsyncTaskDelegate_inse
      * Method to check if the phone has working internet connection.
      * @return true, if it has a stable internet connection.
      * Credits go to: https://medium.com/it-works-locally/what-if-your-android-user-doesnt-have-access-to-the-internet-ad3588cdbda4
+     * TESTED and works on MacOS!
+     * Not confirmed for virtual devices running on Windows computers!!!
      */
     public boolean isOnline() {
         Runtime runtime = Runtime.getRuntime();

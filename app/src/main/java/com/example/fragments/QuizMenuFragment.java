@@ -58,21 +58,21 @@ public class QuizMenuFragment extends Fragment implements AsyncTaskDelegate_inse
         }
 
         // Set 'quiz passed' values, depending on the database values.
-        if (db.quizDAO().getPassedStatusByID(1)) {
+        if (db.quizDAO().getPassedStatusByID(1) == 1) {
             txt3.setText("Yes");
             txt3.setTextColor(getResources().getColor(R.color.colorCorrect));
         } else {
             txt3.setText("No");
             txt3.setTextColor(getResources().getColor(R.color.colorWrong));
         }
-        if (db.quizDAO().getPassedStatusByID(2)) {
+        if (db.quizDAO().getPassedStatusByID(2) == 1) {
             txt5.setText("Yes");
             txt5.setTextColor(getResources().getColor(R.color.colorCorrect));
         } else {
             txt5.setText("No");
             txt5.setTextColor(getResources().getColor(R.color.colorWrong));
         }
-        if (db.quizDAO().getPassedStatusByID(3)) {
+        if (db.quizDAO().getPassedStatusByID(3) == 1) {
             txt7.setText("Yes");
             txt7.setTextColor(getResources().getColor(R.color.colorCorrect));
         } else {
@@ -106,6 +106,7 @@ public class QuizMenuFragment extends Fragment implements AsyncTaskDelegate_inse
         // Set Quiz output, (ONLY) if the user is coming back from a quiz:
         String passedMessage = QuizFragment.passedMessage;
         boolean passedStatus = QuizFragment.passedStatus;
+        txt8.setText("");                                                                           // Clear output on Fragment load.
         if (passedStatus) {
             txt8.setText(passedMessage);
             txt8.setTextColor(getResources().getColor(R.color.colorCorrect));

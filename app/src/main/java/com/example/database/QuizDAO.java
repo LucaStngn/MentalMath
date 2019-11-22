@@ -20,7 +20,7 @@ public interface QuizDAO {
 
     // Query to get whether or not a certain quiz has been passed yet:
     @Query("SELECT Passed FROM Quiz_Table WHERE QuizID = :quizID")
-    boolean getPassedStatusByID(int quizID);
+    int getPassedStatusByID(int quizID);
 
     // Query to set whether or not a certain quiz has been passed:
     @Query ("UPDATE Quiz_Table SET Passed = 1 WHERE QuizID = :quizID")
