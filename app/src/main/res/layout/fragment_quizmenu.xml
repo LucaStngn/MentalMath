@@ -28,7 +28,7 @@
     <Button
         android:id="@+id/btnEasy"
         android:layout_width="wrap_content"
-        android:layout_height="75dp"
+        android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -40,24 +40,24 @@
     <Button
         android:id="@+id/btnMedium"
         android:layout_width="wrap_content"
-        android:layout_height="75dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/btnEasy"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="65dp"
         android:layout_marginEnd="50dp"
         android:text="@string/Medium" />
 
     <Button
         android:id="@+id/btnHard"
         android:layout_width="wrap_content"
-        android:layout_height="75dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/btnMedium"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="65dp"
         android:layout_marginEnd="50dp"
         android:text="@string/Hard" />
 
@@ -189,7 +189,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="65dp"
         android:layout_marginEnd="16dp"
         android:gravity="center" />
 
